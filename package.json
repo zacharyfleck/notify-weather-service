@@ -1,0 +1,27 @@
+{
+  "name": "notifyweatherservice",
+  "version": "1.0.0",
+  "description": "Notify Weather Service is a configurable tool to provide weather alerts from the National Weather Service",
+  "keywords": [
+    "NWS",
+    "alert",
+    "webhook",
+    "slack",
+    "teams"
+  ],
+  "license": "AGPL-3.0",
+  "author": "Zachary Fleck",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "tsc && node dist/index.js"
+  },
+  "dependencies": {
+    "typescript": "^7.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1"
+  }
+}

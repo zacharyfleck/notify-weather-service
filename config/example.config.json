@@ -1,0 +1,49 @@
+{
+  "configVersion": 1,
+  "pollIntervalSeconds": 30,
+  "locations": [
+    {
+      "name": "My House",
+      "coordinates": [
+        34.05559815072185,
+        -118.41341284562557
+      ]
+    },
+    {
+      "name": "Cooked County",
+      "zoneIds": [
+        "ILC031",
+        "ILZ014"
+      ]
+    }
+  ],
+  "notifications": [
+    {
+      "name": "Slack and Teams",
+      "teams": {
+        "webhook": "https://..."
+      },
+      "slack": {
+        "botToken": "xoxb-...",
+        "channel": "#weather-alerts"
+      }
+    },
+    {
+      "name": "Teams Only",
+      "teams": {
+        "webhook": "https://..."
+      }
+    }
+  ],
+  "subscriptions": [
+    {
+      "location": "My House",
+      "notification": "Teams Only",
+      "threshold": "Warning"
+    },
+    {
+      "location": "Cooked County",
+      "notification": "Slack and Teams"
+    }
+  ]
+}
