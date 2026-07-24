@@ -1,5 +1,5 @@
 services:
   notify-weather-service:
-    build: ghcr.io/zacharyfleck/notify-weather-service:latest
+    image: ghcr.io/zacharyfleck/notify-weather-service:latest
     volumes:
       - ./config/:/app/config

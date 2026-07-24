@@ -47,6 +47,10 @@ Each location is polled against [api.weather.gov](https://api.weather.gov). Prov
 }
 ```
 
+To find your area's zone IDs, refer to the the following endpoints: [Counties](https://api.weather.gov/zones/county), [Land](https://api.weather.gov/zones/land)
+
+There are other zone types as well, and all should work with this setup, however having both of the above should get you everything for those of us on land.
+
 | Field         | Type                 | Description                                                          |
 | ------------- | -------------------- | ------------------------------------------------------------------- |
 | `name`        | string               | Unique label; referenced by subscriptions.                          |
