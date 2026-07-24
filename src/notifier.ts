@@ -32,10 +32,10 @@ async function dispatch(
   threshold: Subscription["threshold"],
 ) {
   if (notification.teams) {
-    await sendTeams(notification.teams, location, feature, threshold)
+    await sendTeams(notification.teams, location, feature)
   }
   if (notification.slack) {
-    await sendSlack(notification.slack, location, feature, threshold)
+    await sendSlack(notification.slack, location, feature)
   }
 }
 

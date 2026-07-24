@@ -6,9 +6,8 @@ export async function sendTeams(
   target: Teams,
   locationName: string,
   feature: any,
-  threshold?: Subscription["threshold"],
 ): Promise<void> {
-  const message = buildTeamsMessage(locationName, feature, threshold)
+  const message = buildTeamsMessage(locationName, feature)
 
   try {
     const response = await fetch(target.webhook, {
@@ -102,7 +101,7 @@ export async function sendSlack(
     return
   }
 
-  const message = buildSlackMessage(channelId, locationName, feature, threshold)
+  const message = buildSlackMessage(channelId, locationName, feature)
 
   try {
     const response = await fetch("https://slack.com/api/chat.postMessage", {

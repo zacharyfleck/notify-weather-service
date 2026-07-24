@@ -31,12 +31,20 @@ function pickIcon(eventName: string): IconName {
   return "alert"
 }
 
-/** Builds the Teams webhook payload (Adaptive Card wrapped in a message attachment). */
-export function buildTeamsMessage(locationName: string, feature: any, threshold?: Threshold) {
-  const tier: Threshold = threshold ?? "Advisory"
-  const icon = pngDataUri(`${pickIcon(feature.event ?? "")}-${tier}.png`)
+// Derive the severity tier from the alert's own event name (e.g. "Tornado
+// Warning" -> Warning). This reflects the actual status of the alert, not the
+// subscription's configured minimum threshold.
+function pickTier(eventName: string): Threshold {
+  if (/warning/i.test(eventName)) return "Warning"
+  if (/watch/i.test(eventName)) return "Watch"
+  return "Advisory"
+}
 
+/** Builds the Teams webhook payload (Adaptive Card wrapped in a message attachment). */
+export function buildTeamsMessage(locationName: string, feature: any) {
   const event: string = feature.event ?? "Weather Alert"
+  const icon = pngDataUri(`${pickIcon(event)}-${pickTier(event)}.png`)
+
   const headline: string | undefined = feature.headline
   const description: string | undefined = feature.description
   const instruction: string | undefined = feature.instruction

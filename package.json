@@ -1,6 +1,6 @@
 {
   "name": "notifyweatherservice",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Notify Weather Service is a configurable tool to provide weather alerts from the National Weather Service",
   "keywords": [
     "NWS",

@@ -1,6 +1,5 @@
 import type { Subscription } from "./types.js"
 
-type Threshold = NonNullable<Subscription["threshold"]>
 type IconName = "tornado" | "wave" | "storm" | "snow" | "alert"
 
 // Slack Block Kit cannot render data-URI images the way Teams Adaptive Cards
@@ -31,9 +30,7 @@ export function buildSlackMessage(
   channel: string,
   locationName: string,
   feature: any,
-  threshold?: Threshold,
 ) {
-  const tier: Threshold = threshold ?? "Advisory"
   const emoji = ICON_EMOJI[pickIcon(feature.event ?? "")]
 
   const event: string = feature.event ?? "Weather Alert"
