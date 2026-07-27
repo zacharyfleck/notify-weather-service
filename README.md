@@ -17,7 +17,7 @@ A configurable tool that watches the [U.S. National Weather Service](https://www
 1. Locations are polled against the NWS active-alerts API.
 2. Each returned alert is matched to the subscriptions for that location.
 3. The subscription's threshold decides whether the alert is relevant.
-4. Relevant alerts are dispatched to whichever channels the recipient has configured.
+4. Relevant alerts are dispatched to whichever channels the recipient has configured. At this time, only NEW events are sent. Updates or Cancellations will be disregarded.
 
 See the [Configuration Instructions](docs/) for more details
 

@@ -10,13 +10,19 @@ export default async function processAlerts(location: Location) {
 }
 
 async function getAlerts(location: Location) {
+  let apiUrl = new URL(`https://api.weather.gov/alerts/active?status=actual&message_type=alert`)
+
   if (location.coordinates) {
-    return await fetch(`https://api.weather.gov/alerts/active?status=actual&point=${location.coordinates[0]},${location.coordinates[1]}`)
+    apiUrl.searchParams.set("point", `${location.coordinates[0]},${location.coordinates[1]}`)
+
+    return await fetch(apiUrl.toString())
       .then(response => response.json())
       .then(data => data.features ?? [])
   }
   else if (location.zoneIds) {
-    return fetch(`https://api.weather.gov/alerts/active?status=actual&zone=${location.zoneIds.join(",")}`)
+    apiUrl.searchParams.set("zone", location.zoneIds.join(","))
+
+    return fetch(apiUrl.toString())
       .then(response => response.json())
       .then(data => data.features ?? [])
   }
