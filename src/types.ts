@@ -16,10 +16,16 @@ export interface Notification {
   name: string;
   teams?: Teams;
   slack?: Slack;
+  discord?: Discord;
 }
 
 export interface Teams {
   webhook: string;
+}
+
+export interface Discord {
+  webhook: string;
+  includeDetails?: boolean;
 }
 
 export interface Slack {

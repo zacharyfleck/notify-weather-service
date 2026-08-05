@@ -22,7 +22,7 @@ every `pollIntervalSeconds` seconds (default `30`).
 | `configVersion`       | number           | Must match the version the service expects (currently `1`).     |
 | `pollIntervalSeconds` | number           | Optional. How often to poll for alerts, in seconds. Defaults to `30`. |
 | `locations`           | `Location[]`     | Places to poll the National Weather Service for active alerts.  |
-| `notifications`       | `Notification[]` | Named delivery targets (Teams / Slack).                         |
+| `notifications`       | `Notification[]` | Named delivery targets (Teams / Slack / Discord).               |
 | `subscriptions`       | `Subscription[]` | Wiring that ties a location to a notification (with a threshold). |
 
 The three arrays are joined by name: a **subscription** references a
@@ -70,11 +70,12 @@ channel blocks you need — each configured channel receives the alert.
 }
 ```
 
-| Field   | Type    | Description                                                        |
-| ------- | ------- | ----------------------------------------------------------------- |
-| `name`  | string  | Unique label; referenced by subscriptions.                        |
-| `teams` | `Teams` | Optional. Teams webhook target — see [TEAMS.md](TEAMS.md).         |
-| `slack` | `Slack` | Optional. Slack bot-token target — see [SLACK.md](SLACK.md).       |
+| Field     | Type      | Description                                                      |
+| --------- | --------- | ---------------------------------------------------------------- |
+| `name`    | string    | Unique label; referenced by subscriptions.                       |
+| `teams`   | `Teams`   | Optional. Teams webhook target — see [TEAMS.md](TEAMS.md).        |
+| `slack`   | `Slack`   | Optional. Slack bot-token target — see [SLACK.md](SLACK.md).      |
+| `discord` | `Discord` | Optional. Discord webhook target — see [DISCORD.md](DISCORD.md).  |
 
 ## `subscriptions`
 
@@ -123,6 +124,10 @@ name:
     {
       "name": "Teams Only",
       "teams": { "webhook":  "https://..."}
+    },
+    {
+      "name": "Discord Only",
+      "discord": { "webhook": "https://discord.com/api/webhooks/..." }
     }
   ],
   "subscriptions": [
@@ -134,8 +139,9 @@ name:
 
 ## Notes
 
-- `config.json` holds secrets (Teams webhook URLs, Slack bot tokens). Keep it out
-  of source control and rotate any credential that leaks.
+- `config.json` holds secrets (Teams and Discord webhook URLs, Slack bot tokens).
+  Keep it out of source control and rotate any credential that leaks.
 - A `configVersion` mismatch throws at startup, so bump it in lockstep with the
   service.
-- Channel-specific setup lives in [TEAMS.md](TEAMS.md) and [SLACK.md](SLACK.md).
+- Channel-specific setup lives in [TEAMS.md](TEAMS.md), [SLACK.md](SLACK.md), and
+  [DISCORD.md](DISCORD.md).

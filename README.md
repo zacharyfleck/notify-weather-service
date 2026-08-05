@@ -1,11 +1,11 @@
 # Notify Weather Service
 
-A configurable tool that watches the [U.S. National Weather Service](https://www.weather.gov/documentation/services-web-api) for active alerts and forwards them to the people who care about them, via **Microsoft Teams** or **Slack**
+A configurable tool that watches the [U.S. National Weather Service](https://www.weather.gov/documentation/services-web-api) for active alerts and forwards them to the people who care about them, via **Microsoft Teams**, **Slack**, or **Discord**
 
 ## What it does
 
 - **Monitors locations** — track one or more places, either by geographic coordinates or by NWS zone IDs.
-- **Routes alerts to multiple channels** — a single recipient can receive notifications over Teams and/or Slack at the same time.
+- **Routes alerts to multiple channels** — a single recipient can receive notifications over Teams, Slack, and/or Discord at the same time.
 - **Filters by severity threshold** — subscriptions choose how noisy they want to be:
   - `Advisory` — every event (default)
   - `Watch` — events containing "Watch" or "Warning"
@@ -35,7 +35,7 @@ Currently implemented:
 
 - Location monitoring (coordinates and zone IDs)
 - Alert fetching from the NWS API
-- Channel routing between Teams and Slack
+- Channel routing between Teams, Slack, and Discord
 - Tiered severity thresholds
 
 ## Development

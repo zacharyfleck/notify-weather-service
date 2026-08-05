@@ -1,6 +1,7 @@
-import type { Teams, Slack, Subscription } from "./types.js"
+import type { Teams, Slack, Discord, Subscription } from "./types.js"
 import { buildTeamsMessage } from "./teamsCard.js"
 import { buildSlackMessage, buildSlackThreadReply } from "./slackCard.js"
+import { buildDiscordMessage } from "./discordCard.js"
 
 export async function sendTeams(
   target: Teams,
@@ -21,6 +22,45 @@ export async function sendTeams(
     }
   } catch (err) {
     console.error(`[Teams] ${locationName}: failed to POST alert —`, err)
+  }
+}
+
+export async function sendDiscord(
+  target: Discord,
+  locationName: string,
+  feature: any,
+): Promise<void> {
+  const { payload, files } = buildDiscordMessage(locationName, feature, target.includeDetails)
+
+  // Discord takes uploads as multipart/form-data with the JSON body in a
+  // payload_json part — unlike Teams, images can't be inlined as data URIs.
+  // Leave Content-Type unset so fetch fills in the multipart boundary.
+  const form = new FormData()
+  form.append("payload_json", JSON.stringify(payload))
+  files.forEach((file, index) => {
+    form.append(
+      `files[${index}]`,
+      new Blob([new Uint8Array(file.data)], { type: file.contentType }),
+      file.name,
+    )
+  })
+
+  try {
+    const response = await fetch(target.webhook, {
+      method: "POST",
+      body: form,
+    })
+
+    if (!response.ok) {
+      // Discord explains rejections in the body ({ code, message, errors }),
+      // which is far more useful than the bare status.
+      const detail = await response.text().catch(() => "")
+      console.error(
+        `[Discord] ${locationName}: webhook responded ${response.status} ${response.statusText}${detail ? ` — ${detail}` : ""}`,
+      )
+    }
+  } catch (err) {
+    console.error(`[Discord] ${locationName}: failed to POST alert —`, err)
   }
 }
 
