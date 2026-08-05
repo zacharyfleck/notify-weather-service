@@ -43,19 +43,19 @@ Each location is polled against [api.weather.gov](https://api.weather.gov). Prov
 ```json
 {
   "name": "Cooked County",
-  "zoneIds": ["ILC031", "ILZ014"]
+  "zoneIds": ["ILC031"]
 }
 ```
 
-To find your area's zone IDs, refer to the the following endpoints: [Counties](https://api.weather.gov/zones/county), [Land](https://api.weather.gov/zones/land)
+Use the following endpoint to find your County Code: [Counties](https://api.weather.gov/zones/county)
 
-There are other zone types as well, and all should work with this setup, however having both of the above should get you everything for those of us on land.
+The NWS has multiple alert zone types, however for most use cases, what provides polygon based alerts, such as a sever thunderstorm warning, or tornado warning. Broader forecast zone alerts will also show in county zones when applicable. More information can be found in [this guide](https://www.weather.gov/media/documentation/docs/NWS_Geolocation.pdf) from the NWS.
 
 | Field         | Type                 | Description                                                          |
 | ------------- | -------------------- | ------------------------------------------------------------------- |
 | `name`        | string               | Unique label; referenced by subscriptions.                          |
 | `coordinates` | `[number, number]`   | `[latitude, longitude]` point query. Use this **or** `zoneIds`.     |
-| `zoneIds`     | `string[]`           | NWS zone/county codes (e.g. `NCZ042`). Use this **or** `coordinates`. |
+| `zoneIds`     | `string[]`           | NWS county codes (e.g. `ILC031`). Use this **or** `coordinates`. |
 
 ## `notifications`
 
