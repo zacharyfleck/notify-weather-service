@@ -1,7 +1,7 @@
 import type { Notification, Subscription } from "./types.js"
 import { config } from "./index.js"
 import { sentAlerts } from "./sentAlertStore.js"
-import { sendTeams, sendSlack } from "./channels.js"
+import { sendTeams, sendSlack, sendDiscord } from "./channels.js"
 
 export default async function notify(location: string, feature: any) {
   for (const sub of config.subscriptions.filter(sub => sub.location === location)) {
@@ -36,6 +36,9 @@ async function dispatch(
   }
   if (notification.slack) {
     await sendSlack(notification.slack, location, feature)
+  }
+  if (notification.discord) {
+    await sendDiscord(notification.discord, location, feature)
   }
 }
 

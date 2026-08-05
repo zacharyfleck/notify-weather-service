@@ -33,6 +33,13 @@
       "teams": {
         "webhook": "https://..."
       }
+    },
+    {
+      "name": "Discord Only",
+      "discord": {
+        "webhook": "https://discord.com/api/webhooks/...",
+        "includeDetails": false
+      }
     }
   ],
   "subscriptions": [
